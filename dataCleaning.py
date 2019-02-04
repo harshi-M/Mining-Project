@@ -1,3 +1,5 @@
+import pandas as pd
+
 def readFile(fileName):
     dataArray = []
     with open(fileName, 'rb') as fileContents:
@@ -30,7 +32,18 @@ def readFile(fileName):
                 break
             attributeIndex += 1
         dataArray.append(dataRowArray)
-    print(dataArray[-1])
     return [dataArray, dataAttributes]
 
-[dataArray, dataAttributes] = readFile("cleanedData.csv")
+def printStatsatics(dataFrame, dataAttributes):
+    print("data statastics")
+    print("######################")
+    for attribute in dataAttributes:
+        print(dataFrame[attribute].describe())
+        print("-------------------")
+    print("######################")
+    return
+
+[dataArray, dataAttributes] = readFile("sampleData.csv")
+print(dataAttributes)
+dataFrame = pd.DataFrame(dataArray, columns=dataAttributes)
+printStatsatics(dataFrame, dataAttributes)
