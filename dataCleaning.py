@@ -98,13 +98,13 @@ def printStatsatics(dataFrame, dataAttributes):
 
 #cleanedData.csv the celaned data
 #sampleData.csv just 4 rows maily for testing
-[dataArray, dataAttributes] = readFile("sampleData.csv")
+[dataArray, dataAttributes] = readFile("cleanedData.csv")
 
 #consrt the array to pandas data frame
 dataFrame = pd.DataFrame(dataArray, columns=dataAttributes)
 
 #the below one prints the entire data frame in tabular for easy to check
-print(dataFrame.to_string())
+# print(dataFrame.to_string())
 
 #this function shows the stats for the colums in data frame
-# printStatsatics(dataFrame, dataAttributes)
+printStatsatics(dataFrame, dataAttributes)

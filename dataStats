@@ -51,10 +51,10 @@ min         48.000000
 max         95.000000
 Name: Potential, dtype: float64
 -------------------
-count           17966
-unique            651
-top       Valencia CF
-freq               33
+count                   17966
+unique                    651
+top       TSG 1899 Hoffenheim
+freq                       33
 Name: Club, dtype: object
 -------------------
 count    1.820700e+04
