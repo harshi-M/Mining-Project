@@ -113,7 +113,7 @@ def printStatsatics(dataFrame, dataAttributes):
 dataFrame = pd.DataFrame(dataArray, columns=dataAttributes)
 
 #the below one prints the entire data frame in tabular for easy to check
-# print(dataFrame.to_string())
+print(dataFrame)
 
 #this function shows the stats for the colums in data frame
 # printStatsatics(dataFrame, dataAttributes)
