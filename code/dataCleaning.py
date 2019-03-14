@@ -17,10 +17,8 @@ def readFile(fileName):
     #reading line by line of csv and cleaning and keeping in required format
     for ipLine in lines[1:]:
         dataRowArray = []
-
         #helps to keep track which data attribute we are cosidering
         attributeIndex = 0
-
         #split the input csv (coma seperated values) based on ','
         for ele in ipLine.strip().split(",")[1:]:
 
@@ -96,24 +94,20 @@ def readFile(fileName):
 
 def printStatsatics(dataFrame, dataAttributes):
     print("data statastics")
-
     #consider each attribute and describe it vola dataframes does its magic :P
     for attribute in dataAttributes:
         print(dataFrame[attribute].describe())
-
         print("-------------------")
     print("######################")
     return
 
-#cleanedData.csv the celaned data
-#sampleData.csv just 4 rows maily for testing
-[dataArray, dataAttributes] = readFile("data/cleanedData.csv")
+def normlizeData(dataArray, dataAttributes):
+    return [dataArray, dataAttributes]
 
-#consrt the array to pandas data frame
-dataFrame = pd.DataFrame(dataArray, columns=dataAttributes)
-
-#the below one prints the entire data frame in tabular for easy to check
-print(dataFrame)
-
-#this function shows the stats for the colums in data frame
-# printStatsatics(dataFrame, dataAttributes)
+def getDataFrame(url):
+    [dataArray, dataAttributes] = readFile(url)
+    [dataArray, dataAttributes] = normlizeData(dataArray, dataAttributes)
+    dataFrame = pd.DataFrame(dataArray, columns=dataAttributes)
+    # print(dataFrame)
+    # printStatsatics(dataFrame, dataAttributes)
+    return [dataFrame, dataArray, dataAttributes]
