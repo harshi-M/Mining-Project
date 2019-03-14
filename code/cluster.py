@@ -7,15 +7,19 @@ from sklearn.decomposition import PCA
 def getSubDataFrame(dataFrame, attribuetesList):
     return dataFrame[attribuetesList]
 
+def printGroupedDataFrame(groupedDataFeame):
+    for key, item in groupedDataFeame:
+        print(groupedDataFeame.get_group(key).to_string(), "\n\n")
+    return
+
 def clustersBasedOnAttributes(dataFrame, attribuetesList, k):
+    print("k Value is : "+str(k))
     dataFrame = shuffle(dataFrame)
     subDataFrame = getSubDataFrame(dataFrame, attribuetesList)
     subDataFrame = scale(subDataFrame)
-
     kmeans = KMeans(n_clusters=k).fit(subDataFrame)
-    labels = kmeans.labels_
-    dataFrame['clusters'] = labels
-    print(dataFrame.to_string())
-    clusters = []
-    kCost = 0
-    return [kCost, clusters]
+    dataFrame['Clusters'] = kmeans.labels_
+    groupedDataFrame = dataFrame.groupby('Clusters')
+    printGroupedDataFrame(groupedDataFrame)
+    print("++++++++++++++++++++++++++++\n\n\n")
+    return [kmeans.inertia_, groupedDataFrame]
