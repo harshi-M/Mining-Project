@@ -8,8 +8,11 @@ def getSubDataFrame(dataFrame, attribuetesList):
     return dataFrame[attribuetesList]
 
 def printGroupedDataFrame(groupedDataFeame):
+    clusterNum = 1
     for key, item in groupedDataFeame:
+        print("cluster number = "+ str(clusterNum))
         print(groupedDataFeame.get_group(key).to_string(), "\n\n")
+        clusterNum+= 1
     return
 
 def clustersBasedOnAttributes(dataFrame, attribuetesList, k):

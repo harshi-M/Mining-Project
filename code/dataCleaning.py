@@ -88,7 +88,8 @@ def readFile(fileName):
             #next data attribute in the single data line
             attributeIndex += 1
         #append the cleaned data line to op array
-        dataArray.append(dataRowArray)
+        if(dataRowArray[17] == "ST"):
+            dataArray.append(dataRowArray)
 
     return [dataArray, dataAttributes]
 
