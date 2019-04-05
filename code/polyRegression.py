@@ -25,27 +25,15 @@ for i in range(len(allAtrr)):
         
         polynomial_features= PolynomialFeatures(degree=4)
         
-        xList = df[attr].values;
-        yList = df['Value'].values;
-
-        #xList = xList[:, np.newaxis]
-        #yList = yList[:, np.newaxis]
-        
+        xList = df[attr].values
+        yList = df['Value'].values
         x_poly = polynomial_features.fit_transform(xList)
         
         model = LinearRegression()
         model.fit(x_poly, yList)
         
-        y_poly_pred = model.predict(x_poly)
-
-        #print(attrList)
-        #predictions = list(model.predict(test[attr].values))
-        #expected = list(test['Value'].values)
+        y_poly_pred = model.predict(x_poly))
         error = np.sqrt(mean_squared_error(yList,y_poly_pred))
-
-        #for rowIndex in range(len(predictions)):
-            #print(str(predictions[rowIndex])+ " - " + str(expected[rowIndex])) 
-            #error += abs(predictions[rowIndex] - expected[rowIndex])
         print(error)
         if minVAL == -1 or minVAL > error:
             minVAL = error
@@ -53,9 +41,3 @@ for i in range(len(allAtrr)):
 print("----------------------------")
 print(minVAL)
 print(minCombo)
-# 6381240104.69675 - ['Overall','International Reputation', 'Potential']
-#  9296623193.713446 - 
-
-
-#536743.7611382051
-#['Age', 'Overall', 'Potential', 'International Reputation', 'Skill Moves', 'ShortPassing', 'LongPassing', 'BallControl', 'Vision']
