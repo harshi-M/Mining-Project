@@ -51,7 +51,7 @@ def replacementInSet(player, dataFrame, dataArray, dataAttributes):
     chooseReplacementInSet(playersSet, ids, player)
     return
 
-def fiveQues():
+def chooseReplacement():
     print("1. Choosing a replacement in the set of Players")
     print("2. Choosing a replacement within team")
     option = input("Enter your choice: ")
@@ -67,4 +67,4 @@ def fiveQues():
     else:
         replacementInTeam(player, dataFrame, dataArray, dataAttributes)
 
-fiveQues()
+chooseReplacement()
