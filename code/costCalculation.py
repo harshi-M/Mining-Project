@@ -31,8 +31,7 @@ for i in range(len(allAtrr)):
         
         model = LinearRegression()
         model.fit(x_poly, yList)
-        
-        y_poly_pred = model.predict(x_poly))
+        y_poly_pred = model.predict(x_poly)
         error = np.sqrt(mean_squared_error(yList,y_poly_pred))
         print(error)
         if minVAL == -1 or minVAL > error:
