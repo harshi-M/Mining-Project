@@ -5,224 +5,60 @@ import pickle
 import pandas as pd
 from scipy.spatial.distance import pdist, squareform
 
+positionBasedAttrList = {"ST": ['Crossing', 'Finishing', 'ShortPassing', 'Volleys', 'Dribbling', 'Curve', 'BallControl', 'ShotPower', 'LongShots', 'Positioning', 'Penalties'],
+     "LS": ['Crossing', 'Finishing', 'ShortPassing', 'Volleys', 'Dribbling', 'Curve', 'BallControl', 'ShotPower', 'LongShots', 'Positioning', 'Penalties'],
+     "RS": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "LW": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "LF": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "CF": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "RF": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "RW": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "LAM": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "CAM": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "RAM": ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "LM": ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "LCM": ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "CM": ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties', ' Stamina', ' LongPassing'],
+     "RCM": ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties', ' Stamina', ' LongPassing'],
+     "RM": ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "LWB": ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties'],
+     "LDM": ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle'],
+     "CDM": ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle'],
+     "RDM": ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle'],
+     "RWB":['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle'],
+     "LB":['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle'],
+     "RB": ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle'],
+     "LCB": ['HeadingAccuracy', ' Aggression', ' Interceptions', ' Marking', ' StandingTackle', ' SlidingTackle'],
+     "CB": ['HeadingAccuracy', ' Aggression', ' Interceptions', ' Marking', ' StandingTackle', ' SlidingTackle'],
+     "RCB": ['HeadingAccuracy', ' Aggression', ' Interceptions', ' Marking', ' StandingTackle', ' SlidingTackle'],
+     "GK": ['GKDiving', ' GKHandling', ' GKKicking', ' GKPositioning', ' GKReflexes']}
 
-# [dataFrame, dataArray, dataAttributes] = data.getDataFrame("data/cleanedData.csv")
-# pickle.dump(dataFrame, open("cleanedDataDataFramePickel",'wb'))
-# pickle.dump(dataArray, open("cleanedDataDataArrayPickel",'wb'))
-# pickle.dump(dataAttributes, open("cleanedDataDataAttributesPickel",'wb'))
-
-def getKeysFromPosition(position):
-    print(position)
-    x = []
-    if position == "LS":
-        x.append(20)
-        x.append(9)
-        x.append(2)
-        x.append(24)
-    elif position == "ST":
-        x.append(7)
-        x.append(9)
-        x.append(20)
-        x.append(23)
-        x.append(2)
-    elif position == "RS":
-        x.append(20)
-        x.append(9)
-        x.append(23)
-        x.append(11)
-    elif position == "LF": #dicey
-        x.append(24)
-        x.append(2)
-        x.append(10)
-        x.append(11)
-    elif position == "CF":
-        x.append(11)
-        x.append(2)
-    elif position == "RF":
-        x.append(24)
-    elif position == "LW":
-        x.append(11)
-        x.append(21)
-        x.append(10)
-        x.append(9)
-    elif position == "RW":
-        x.append(11)
-        x.append(21)
-        x.append(10)
-        x.append(9)
-    elif position == "LAM":
-        x.append(10)
-    elif position == "CAM":
-        x.append(10)
-        x.append(11)
-        x.append(12)
-        x.append(21)
-        x.append(4)
-    elif position == "RAM":
-        x.append(10)
-    elif position == "LM":
-        x.append(11)
-        x.append(2)
-        x.append(21)
-        x.append(4)
-    elif position == "LCM":
-        x.append(27)
-        x.append(4)
-        x.append(5)
-        x.append(13)
-    elif position == "CM":
-        x.append(4)
-        x.append(18)
-        x.append(27)
-        x.append(13)
-        x.append(3)
-    elif position == "RCM":
-        x.append(27)
-        x.append(4)
-        x.append(5)
-        x.append(13)
-    elif position == "RM":
-        x.append(21)
-        x.append(11)
-        x.append(2)
-        x.append(4)
-        x.append(10)
-    elif position == "LWB":
-        x.append(14)
-        x.append(0)
-    elif position == "LDM":
-        x.append(27)
-        x.append(18)
-        x.append(19)
-        x.append(13)
-    elif position == "CDM":
-        x.append(18)
-        x.append(19)
-        x.append(27)
-        x.append(3)
-        x.append(0)
-    elif position == "RDM":
-        x.append(27)
-        x.append(18)
-        x.append(19)
-        x.append(13)
-    elif position == "RWB":
-        x.append(14)
-        x.append(0)
-        x.append(3)
-    elif position == "LB":
-        x.append(0)
-        x.append(14)
-        x.append(5)
-        x.append(3)
-        x.append(18)
-    elif position == "LCB":
-        x.append(22)
-        x.append(26)
-        x.append(8)
-        x.append(15)
-    elif position == "CB":
-        x.append(16)
-        x.append(22)
-        x.append(8)
-        x.append(26)
-        x.append(15)
-    elif position == "RCB":
-        x.append(26)
-        x.append(22)
-        x.append(8)
-        x.append(19)
-    elif position == "RB":
-        x.append(14)
-        x.append(0)
-        x.append(3)
-        x.append(5)
-        x.append(19)
-    elif position == "GK":
-        x.append(1)
-        x.append(25)
-        x.append(6)
-    return x
+getKeysFromPosition = {"LS": [20, 9, 2, 24], "ST": [7, 9, 20, 23, 2], "RS": [20, 9, 23, 11], "LF": [ 24, 2, 10, 11],
+"CF": [11, 2], "RF": [24], "LW": [ 11, 21, 10, 9], "RW": [ 11, 21, 10, 9], "LAM": [10], "CAM": [ 10, 11, 12, 21, 4],
+"RAM": [ 10], "LM": [11, 2, 21, 4,], "LCM": [27,4,5,13], "CM": [4,18,27,13,3], "RCM": [27,4,5,13], "RM": [21,11,2,4,10],
+"LWB": [14,0], "LDM": [27,18,19,13], "CDM": [18,19,27,3,0], "RDM": [27,18,19,13], "RWB": [14,0,3], "LB": [0,14,5,3,18],
+"LCB": [22,26,8,15], "CB": [16,22,8,26,15], "RCB": [26,22,8,19], "RB": [14,0,3,5,19], "GK": [1,25,6]}
 
 def showDiff(player, playerSet, replacementIndex, attrList):
     row1 = playerSet.loc[playerSet['ID'] == replacementIndex]
     row2 = playerSet.loc[playerSet['ID'] == player]
-    
-    #print(row1)
-    #print(row2)
-    
+    diffSum = 0
     print(row1)
     for columnName in attrList:
         x1 = row1[columnName]
         x2 = row2[columnName]
         
         if(x1.values > x2.values):
+            diff = x1.values - x2.values
+            diffSum += diff
             print("Player needs to improve " + columnName + " by ")
-            print(x1.values - x2.values)
+            print(diff)
             print("points")
-    
-    return
-
-def getAttrList(positionVal):
-    if positionVal == "ST":
-        return ['Crossing', 'Finishing', 'ShortPassing', 'Volleys', 'Dribbling', 'Curve', 'BallControl', 'ShotPower', 'LongShots', 'Positioning', 'Penalties']
-    elif positionVal == "LS":
-        return ['Crossing', 'Finishing', 'ShortPassing', 'Volleys', 'Dribbling', 'Curve', 'BallControl', 'ShotPower', 'LongShots', 'Positioning', 'Penalties']
-    elif positionVal == "RS":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "LW":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "LF":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "CF":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "RF":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "RW":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "LAM":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "CAM":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "RAM":
-        return ['Crossing', ' Finishing', ' ShortPassing', ' Volleys', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "LM":
-        return ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "LCM":
-        return ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "CM":
-        return ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties', ' Stamina', ' LongPassing']
-    elif positionVal == "RCM":
-        return ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties', ' Stamina', ' LongPassing']
-    elif positionVal == "RM":
-        return ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "LWB":
-        return ['Crossing', ' ShortPassing', ' Dribbling', ' Curve', ' BallControl', ' ShotPower', ' LongShots', ' Positioning', ' Penalties']
-    elif positionVal == "LDM":
-        return ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle']
-    elif positionVal == "CDM":
-        return ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle']
-    elif positionVal == "RDM":
-        return ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle']
-    elif positionVal == "RWB":
-        return ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle']
-    elif positionVal == "LB":
-        return ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle']
-    elif positionVal == "RB":
-        return ['ShortPassing', ' LongPassing', ' BallControl', ' Stamina', ' Interceptions', ' Marking', ' StandingTackle']
-    elif positionVal == "LCB":
-        return ['HeadingAccuracy', ' Aggression', ' Interceptions', ' Marking', ' StandingTackle', ' SlidingTackle']
-    elif positionVal == "CB":
-        return ['HeadingAccuracy', ' Aggression', ' Interceptions', ' Marking', ' StandingTackle', ' SlidingTackle']
-    elif positionVal == "RCB":
-        return ['HeadingAccuracy', ' Aggression', ' Interceptions', ' Marking', ' StandingTackle', ' SlidingTackle']
-    elif positionVal == "GK":
-        return ['GKDiving', ' GKHandling', ' GKKicking', ' GKPositioning', ' GKReflexes']
-    
+    return  diffSum
     
 def chooseReplacementInSet(playersSet, ids, player, positionVal):
     originalPlayersSet = playersSet
-    attrList = [x.strip(" ") for x in getAttrList(positionVal) ]
+    attrList = [x.strip(" ") for x in positionBasedAttrList[positionVal] ]
     #if positionVal == "ST":
     playersSet = playersSet.filter(attrList, axis=1)
     #else:
@@ -233,32 +69,23 @@ def chooseReplacementInSet(playersSet, ids, player, positionVal):
     del ids[playerIndex]
     replacementIndex = distMatrix.index(min(distMatrix))
     #print("player replacement is " +str(ids[replacementIndex]))
-    showDiff(player, originalPlayersSet, ids[replacementIndex], attrList)
-    return
+    return showDiff(player, originalPlayersSet, ids[replacementIndex], attrList)
 
 def getClosestInClusters(player, positionVal):
-    dataFrame = pickle.load(open("cleanedDataDataFramePickel",'rb'))
-    dataAttributes = pickle.load(open("cleanedDataDataAttributesPickel",'rb'))
+    dataFrame = pickle.load(open("pickels/cleanedDataFramePickel",'rb'))
+    dataAttributes = pickle.load(open("pickels/cleanedDataAttributesPickel",'rb'))
     groupedDataFrame = pickle.load(open("groupedDataFrame",'rb'))
-    clustersSet = getKeysFromPosition(positionVal)
-    
+    clustersSet = getKeysFromPosition[positionVal]
     #clusteringAttributesList = ["Crossing", "Finishing", "HeadingAccuracy", "ShortPassing", "Volleys", "Dribbling", "Curve", "FKAccuracy", "LongPassing", "BallControl", "Acceleration", "SprintSpeed", "Agility", "Reactions", "Balance", "ShotPower", "Jumping", "Stamina", "Strength", "LongShots", "Aggression", "Interceptions", "Positioning", "Vision", "Penalties", "Composure", "Marking", "StandingTackle", "SlidingTackle", "GKDiving", "GKHandling", "GKKicking", "GKPositioning", "GKReflexes"]
-
     #[kCost, groupedDataFrame] = cluster.clustersBasedOnAttributes(dataFrame, clusteringAttributesList, 28)
-
     playersArray = []
-    
     for i in clustersSet:
-        playersArray.extend(groupedDataFrame.get_group(i)['ID'].unique())
-        
+        playersArray.extend(groupedDataFrame.get_group(i)['ID'].unique())        
     playersArray = list(map(int, playersArray))
-
     #print(playersArray)
-
     if player in playersArray:
         print("Player can already play as " + positionVal)
-        return
-    
+        return 0
     playersArray.append(player)
     playerTeamMates = []
     ids = []
@@ -268,13 +95,7 @@ def getClosestInClusters(player, positionVal):
             ids.append(row["ID"])
          
     playersSet = pd.DataFrame(playerTeamMates, columns=dataAttributes)
-    chooseReplacementInSet(playersSet, ids, player, positionVal)
-    return
-
-player = int(input("Enter player id "))
-positionVal = input("Enter position he wants to play in ")
-getClosestInClusters(player, positionVal)
-
+    return chooseReplacementInSet(playersSet, ids, player, positionVal)
 
 #clusteringAttributesList = ["Crossing", "Finishing", "HeadingAccuracy", "ShortPassing", "Volleys", "Dribbling", "Curve", "FKAccuracy", "LongPassing", "BallControl", "Acceleration", "SprintSpeed", "Agility", "Reactions", "Balance", "ShotPower", "Jumping", "Stamina", "Strength", "LongShots", "Aggression", "Interceptions", "Positioning", "Vision", "Penalties", "Composure", "Marking", "StandingTackle", "SlidingTackle", "GKDiving", "GKHandling", "GKKicking", "GKPositioning", "GKReflexes"]
 #for k in range(1,31):

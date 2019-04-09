@@ -1,6 +1,6 @@
 import pickle
 import itertools
-import whatAttributesToImprove as attrImprove
+import attributesToImprove as attrImprove
 
 formationsList = [ [4, 4, 2], [4,3,3], [4,4,2], [4, 3, 2, 1], [5, 3, 2], [3, 4, 3], [3, 5, 2], [3, 4, 1, 2], [3, 6, 1], [4, 5, 1], [4, 2, 3, 1], [4, 6,0], [5, 4, 1], [1, 6, 3], [4, 2, 2, 2], [3, 3, 1, 3], [3, 3, 3, 1], [4, 2, 1, 3]]
 allPossiblePositions = ['RB','RW','CM','LAM','ST','CB','LCM','RCB','CAM','RWB','GK','RS','RM','CDM','LB','LF','RAM','LWB','RF','RDM','RCM','LM','LS','LDM','LCB','LW','CF']
@@ -31,7 +31,6 @@ formationsPositions = [
     # [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], #[4, 2, 1, 3]
 ]
 
-
 def getDetails():
     playersPosition = {}
 
@@ -50,6 +49,17 @@ def getDetails():
             exit(0)
     return [playersPosition, formation]
 
-[playersPosition, formation] = getDetails()
+# [playersPosition, formation] = getDetails()
+
+playersPosition = { "GK": 193080, "LCB": 221660, "LB": 225508, "RB" : 194957, "RCB":  234574,
+"LM": 178088, "CM": 195864, "RM": 191202, "CDM": 237238, "LF": 192505, "RF": 211300}
+formation = 0
+error = 0
 for position in playersPosition.keys():
-    attrImprove.getClosestInClusters(position, playersPosition[position])
+    error += attrImprove.getClosestInClusters(playersPosition[position], position)
+
+if error == 0:
+    print("The score for your formarion according to players is 1")
+else:
+    print("error = ", str(error))
+    print("The score for your formarion according to players is ", str(1/error))
