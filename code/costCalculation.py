@@ -5,12 +5,11 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import train_test_split
 from itertools import combinations
 import numpy as np
-# -*- coding: utf-8 -*-
 
-df = pickle.load(open("cleanedDataDataFramePickel",'rb'))
-dataArray = pickle.load(open("cleanedDataDataArrayPickel",'rb'))
-dataAttributes = pickle.load(open("cleanedDataDataAttributesPickel",'rb'))
 
+df = pickle.load(open("pickels/cleanedDataFramePickel",'rb'))
+dataArray = pickle.load(open("pickels/cleanedDataArrayPickel",'rb'))
+dataAttributes = pickle.load(open("pickels/cleanedDataAttributesPickel",'rb'))
 
 train, test = train_test_split(df, test_size=0.2)
 

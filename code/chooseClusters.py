@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 import pickle
 
 
-# [dataFrame, dataArray, dataAttributes] = data.getDataFrame("data/cleanedData.csv")
-# pickle.dump(dataFrame, open("pickels/cleanedDataDataFramePickel",'wb'))
-# pickle.dump(dataArray, open("pickels/cleanedDataDataArrayPickel",'wb'))
-# pickle.dump(dataAttributes, open("pickels/cleanedDataDataAttributesPickel",'wb'))
+[dataFrame, dataArray, dataAttributes] = data.getDataFrame("data/cleanedData.csv")
+pickle.dump(dataFrame, open("pickels/cleanedDataFramePickel",'wb'))
+pickle.dump(dataArray, open("pickels/cleanedDataArrayPickel",'wb'))
+pickle.dump(dataAttributes, open("pickels/cleanedDataAttributesPickel",'wb'))
 
-dataFrame = pickle.load(open("pickels/cleanedDataDataFramePickel",'rb'))
-dataArray = pickle.load(open("pickels/cleanedDataDataArrayPickel",'rb'))
-dataAttributes = pickle.load(open("pickels/cleanedDataDataAttributesPickel",'rb'))
+dataFrame = pickle.load(open("pickels/cleanedDataFramePickel",'rb'))
+dataArray = pickle.load(open("pickels/cleanedDataArrayPickel",'rb'))
+dataAttributes = pickle.load(open("pickels/cleanedDataAttributesPickel",'rb'))
 
 clusteringAttributesList = ["Crossing", "Finishing", "HeadingAccuracy", "ShortPassing", "Volleys", "Dribbling", "Curve", "FKAccuracy", "LongPassing", "BallControl", "Acceleration", "SprintSpeed", "Agility", "Reactions", "Balance", "ShotPower", "Jumping", "Stamina", "Strength", "LongShots", "Aggression", "Interceptions", "Positioning", "Vision", "Penalties", "Composure", "Marking", "StandingTackle", "SlidingTackle", "GKDiving", "GKHandling", "GKKicking", "GKPositioning", "GKReflexes"]
 x = []
