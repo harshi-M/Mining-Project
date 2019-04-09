@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import pickle
 
 
-[dataFrame, dataArray, dataAttributes] = data.getDataFrame("data/cleanedData.csv")
-pickle.dump(dataFrame, open("pickels/cleanedDataFramePickel",'wb'))
-pickle.dump(dataArray, open("pickels/cleanedDataArrayPickel",'wb'))
-pickle.dump(dataAttributes, open("pickels/cleanedDataAttributesPickel",'wb'))
+# [dataFrame, dataArray, dataAttributes] = data.getDataFrame("data/cleanedData.csv")
+# pickle.dump(dataFrame, open("pickels/cleanedDataFramePickel",'wb'))
+# pickle.dump(dataArray, open("pickels/cleanedDataArrayPickel",'wb'))
+# pickle.dump(dataAttributes, open("pickels/cleanedDataAttributesPickel",'wb'))
 
 dataFrame = pickle.load(open("pickels/cleanedDataFramePickel",'rb'))
 dataArray = pickle.load(open("pickels/cleanedDataArrayPickel",'rb'))

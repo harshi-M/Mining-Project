@@ -13,7 +13,7 @@ dataAttributes = pickle.load(open("pickels/cleanedDataAttributesPickel",'rb'))
 
 train, test = train_test_split(df, test_size=0.2)
 
-allAtrr = ['Age', 'Overall', 'Potential', 'Special','International Reputation', 'Skill Moves', 'ShortPassing','LongPassing', 'BallControl','Reactions', 'Vision', 'Composure']
+allAtrr = ['Age', 'Potential', 'Special','International Reputation', 'Skill Moves', 'ShortPassing','LongPassing', 'BallControl','Reactions', 'Vision', 'Composure']
 minVAL = -1
 minCombo = []
 for i in range(len(allAtrr)):
@@ -22,20 +22,26 @@ for i in range(len(allAtrr)):
         
         attr = list(x)
         
-        polynomial_features= PolynomialFeatures(degree=4)
-        
-        xList = df[attr].values
-        yList = df['Value'].values
-        x_poly = polynomial_features.fit_transform(xList)
-        
+        polynomial_features= PolynomialFeatures(degree=5)
+        xTrainList = train[attr].values
+        yTainList = train['Value'].values
+        trainFeature = polynomial_features.fit_transform(xTrainList)
         model = LinearRegression()
-        model.fit(x_poly, yList)
-        y_poly_pred = model.predict(x_poly)
-        error = np.sqrt(mean_squared_error(yList,y_poly_pred))
+        model.fit(trainFeature, yTainList)
+
+        #testing model
+        xTestList = test[attr].values
+        yTestList = test['Value'].values
+        testFeature = polynomial_features.fit_transform(xTestList)
+        polyPred = model.predict(testFeature)
+        
+        error = np.sqrt(mean_squared_error(yTestList,polyPred))
         print(error)
         if minVAL == -1 or minVAL > error:
             minVAL = error
             minCombo = attr
+            pickle.dump(attr, open("pickels/costAttributesWithoutOverall",'wb'))
+            pickle.dump(model, open("pickels/costModelWithoutOverall",'wb'))
 print("----------------------------")
 print(minVAL)
 print(minCombo)
