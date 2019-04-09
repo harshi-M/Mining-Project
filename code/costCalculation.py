@@ -13,7 +13,7 @@ dataAttributes = pickle.load(open("pickels/cleanedDataAttributesPickel",'rb'))
 
 train, test = train_test_split(df, test_size=0.2)
 
-allAtrr = ['Age', 'Potential', 'Special','International Reputation', 'Skill Moves', 'ShortPassing','LongPassing', 'BallControl','Reactions', 'Vision', 'Composure']
+allAtrr = ['Age', 'Overall', 'Potential', 'Special','International Reputation', 'Skill Moves', 'ShortPassing','LongPassing', 'BallControl','Reactions', 'Vision', 'Composure', 'LS', 'ST', 'RS','LW','LF','CF', 'RF', 'RW', 'LAM', 'CAM', 'RAM', 'LM', 'LCM', 'CM', 'RCM', 'RM', 'LWB', 'LDM', 'CDM', 'RDM', 'RWB', 'LB', 'LCB','CB','RCB','RB']
 minVAL = -1
 minCombo = []
 for i in range(len(allAtrr)):
@@ -22,7 +22,7 @@ for i in range(len(allAtrr)):
         
         attr = list(x)
         
-        polynomial_features= PolynomialFeatures(degree=5)
+        polynomial_features= PolynomialFeatures(degree=4)
         xTrainList = train[attr].values
         yTainList = train['Value'].values
         trainFeature = polynomial_features.fit_transform(xTrainList)
