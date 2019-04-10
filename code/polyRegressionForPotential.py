@@ -12,33 +12,30 @@ dataArray = pickle.load(open("cleanedDataDataArrayPickel",'rb'))
 dataAttributes = pickle.load(open("cleanedDataDataAttributesPickel",'rb'))
 
 
-train, test = train_test_split(df, test_size=0.01)
+train, test = train_test_split(df, test_size=0.02)
 
 allAtrr = ['Age', 'Overall', 'Reactions', 'ShortPassing','LongPassing', 'Vision', 'Composure']
 minVAL = -1
+minCoeff = -1
 minCombo = []
 for i in range(len(allAtrr)):
     attrList = list(combinations(allAtrr, i + 1))
     for x in attrList:
-        
-        attr = list(x)
-        
+        attr = list(x)        
         polynomial_features= PolynomialFeatures(degree=5)
-        
-        xList = df[attr].values;
-        yList = df['Potential'].values;
-
-        #xList = xList[:, np.newaxis]
-        #yList = yList[:, np.newaxis]
-        
-        x_poly = polynomial_features.fit_transform(xList)
-        
+        xTrainList = train[attr].values
+        yTainList = train['Potential'].values
+        trainFeature = polynomial_features.fit_transform(xTrainList)
         model = LinearRegression()
-        model.fit(x_poly, yList)
+        model.fit(trainFeature, yTainList)
+
+        #testing model
+        xTestList = test[attr].values
+        yTestList = test['Potential'].values
+        testFeature = polynomial_features.fit_transform(xTestList)
+        polyPred = model.predict(testFeature)
         
-        y_poly_pred = model.predict(x_poly)
-        error = np.sqrt(mean_squared_error(yList,y_poly_pred))
-        
+        error = np.sqrt(mean_squared_error(yTestList,polyPred))
         print(error)
         if minVAL == -1 or minVAL > error:
             minVAL = error
@@ -47,6 +44,7 @@ for i in range(len(allAtrr)):
 print("----------------------------")
 print(minVAL)
 print(minCombo)
+print(minCoeff)
 # 6381240104.69675 - ['Overall','International Reputation', 'Potential']
 #  9296623193.713446 - 
 
