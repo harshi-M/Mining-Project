@@ -13,7 +13,7 @@ dataAttributes = pickle.load(open("pickels/cleanedDataAttributesPickel",'rb'))
 
 train, test = train_test_split(df, test_size=0.2)
 
-allAtrr = ['Age', 'Overall', 'Potential', 'Special','International Reputation', 'Skill Moves', 'ShortPassing','LongPassing', 'BallControl','Reactions', 'Vision', 'Composure', 'LS', 'ST', 'RS','LW','LF','CF', 'RF', 'RW', 'LAM', 'CAM', 'RAM', 'LM', 'LCM', 'CM', 'RCM', 'RM', 'LWB', 'LDM', 'CDM', 'RDM', 'RWB', 'LB', 'LCB','CB','RCB','RB']
+allAtrr = ['Age', 'Overall', 'Potential','International Reputation', 'LS', 'ST', 'RS','LW','LF','CF', 'RF', 'RW', 'LAM', 'CAM', 'RAM', 'LM', 'LCM', 'CM', 'RCM', 'RM', 'LWB', 'LDM', 'CDM', 'RDM', 'RWB', 'LB', 'LCB','CB','RCB','RB']
 minVAL = -1
 minCombo = []
 for i in range(len(allAtrr)):

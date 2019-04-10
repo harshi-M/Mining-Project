@@ -23,6 +23,6 @@ def clustersBasedOnAttributes(dataFrame, attribuetesList, k):
     kmeans = KMeans(n_clusters=k).fit(subDataFrame)
     dataFrame['Clusters'] = kmeans.labels_
     groupedDataFrame = dataFrame.groupby('Clusters')
-    printGroupedDataFrame(groupedDataFrame)
-    print("++++++++++++++++++++++++++++\n\n\n")
-    return [kmeans.inertia_, groupedDataFrame]
+    # printGroupedDataFrame(groupedDataFrame)
+    print("++++++++++++++++++++++++++++")
+    return [kmeans.inertia_, groupedDataFrame, dataFrame]

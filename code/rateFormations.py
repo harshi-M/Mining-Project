@@ -49,11 +49,10 @@ def getDetails():
             exit(0)
     return [playersPosition, formation]
 
-# [playersPosition, formation] = getDetails()
-
 playersPosition = { "GK": 193080, "LCB": 221660, "LB": 225508, "RB" : 194957, "RCB":  234574,
 "LM": 178088, "CM": 195864, "RM": 191202, "CDM": 237238, "LF": 192505, "RF": 211300}
 formation = 0
+# [playersPosition, formation] = getDetails()
 error = 0
 for position in playersPosition.keys():
     error += attrImprove.getClosestInClusters(playersPosition[position], position)

@@ -28,9 +28,9 @@ polynomial_features= PolynomialFeatures(degree=4)
 
 #model from pickel
 
-attr = pickle.load(open("pickels/costAttributes",'rb'))
-model = pickle.load(open("pickels/costModel",'rb'))
-
+attr = pickle.load(open("pickels/costAttributesWithoutOverall",'rb'))
+model = pickle.load(open("pickels/costModelWithoutOverall",'rb'))
+print(attr)
 #testing model
 xTestList = test[attr].values
 yTestList = test['Value'].values
